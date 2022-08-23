@@ -7,6 +7,8 @@ namespace Carbon {
   public:
     Application();
     ~Application();
+    bool ExitCondition;
+    virtual void Update()=0;
     void Run();
   };
   // Client defines this

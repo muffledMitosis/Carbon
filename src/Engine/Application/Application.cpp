@@ -3,5 +3,12 @@
 namespace Carbon {
   Application::Application() {}
   Application::~Application() {}
-  void Application::Run() {}
+  
+  void Application::Run()
+  {
+    while(this->ExitCondition)
+    {
+      this->Update();
+    }
+  }
 }
