@@ -1,7 +1,5 @@
 #pragma once
 
-#define PLATFORM_LINUX
-
 #ifdef PLATFORM_WINDOWS
 
 #ifdef CARBON_BUILD_DLL
