@@ -1,0 +1,3 @@
+[submodule "libs/serial"]
+	path = libs/serial
+	url = https://github.com/wjwwood/serial.git
