@@ -17,7 +17,7 @@ private:
 public:
   SerialInfo info;
   Serial(const SerialInfo& info);
-  void readBytes();
+  void readLine();
   ~Serial();
 };
 

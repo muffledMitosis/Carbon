@@ -1,7 +1,30 @@
+file(GLOB imgui_src CONFIGURE_DEPENDS "./libs/imgui/*.cpp")
+set(imgui_backends "./libs/imgui/backends/imgui_impl_glfw.cpp"
+                   "./libs/imgui/backends/imgui_impl_opengl3.cpp"
+                   "./libs/imgui/backends/imgui_impl_opengl3_loader.h")
+
 file(GLOB_RECURSE engine_src CONFIGURE_DEPENDS "./src/Engine/*.cpp")
-add_library(Carbon SHARED ${engine_src})
+add_library(Carbon SHARED ${engine_src}
+                          ${imgui_src}
+                          ${imgui_backends})
+
+target_include_directories(Carbon PUBLIC ./libs/imgui/)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_compile_definitions(PLATFORM_WINDOWS)
+# -------- GLFW AND OPENGL --------
+
+add_subdirectory(./libs/glfw/)
+
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+find_package(OpenGL REQUIRED)
+target_link_libraries(Carbon PUBLIC OpenGL::GL)
+
+target_include_directories(Carbon PUBLIC ./libs/glfw/include/)
+target_link_libraries(Carbon PUBLIC glfw)
+
+add_compile_definitions(PLATFORM_LINUX)
 add_compile_definitions(CARBON_BUILD_DLL)

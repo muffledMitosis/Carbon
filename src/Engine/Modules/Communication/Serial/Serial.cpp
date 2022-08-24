@@ -70,7 +70,7 @@ Serial::Serial(const SerialInfo& info)
 
 }
 
-void Serial::readBytes()
+void Serial::readLine()
 {
   char read_buff[256];
   memset(&read_buff, '\0', sizeof(read_buff));
