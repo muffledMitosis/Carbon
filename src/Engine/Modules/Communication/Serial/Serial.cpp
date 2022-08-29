@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <string>
 
 #ifdef PLATFORM_LINUX
 
@@ -16,7 +17,7 @@
 
 #include <iostream>
 
-namespace Carbon {
+namespace Carbon::Module {
 
 Serial::Serial(const SerialInfo& info)
 {
@@ -43,7 +44,7 @@ Serial::Serial(const SerialInfo& info)
   tty.c_cflag |= CS8; // 8 bits per byte
   tty.c_cflag &= ~CRTSCTS; // Disable RTS/CTS hardware flow control
   tty.c_cflag |= CREAD | CLOCAL; // Turn on READ & ignore ctrl lines
-  tty.c_lflag |= ICANON; // Enable Canonical Mode
+  tty.c_lflag &= ~ICANON; // Disable Canonical Mode
   tty.c_lflag &= ~ECHO; // Disable echo
   tty.c_lflag &= ~ECHOE; // Disable erasure
   tty.c_lflag &= ~ECHONL; // Disable new-line echo
@@ -54,7 +55,8 @@ Serial::Serial(const SerialInfo& info)
   tty.c_oflag &= ~ONLCR; // Prevent conversion of newline to carriage return/line feed
   // tty.c_oflag &= ~OXTABS; // Prevent conversion of tabs to spaces (NOT PRESENT IN LINUX)
   // tty.c_oflag &= ~ONOEOT; // Prevent removal of C-d chars (0x004) in output (NOT PRESENT IN LINUX)
-  tty.c_cc[VTIME] = 0;    // Wait for up to 1s (10 deciseconds), returning as soon as any data is received.
+  // tty.c_cc[VTIME] = 10;    // Wait for up to 1s (10 deciseconds), returning as soon as any data is received.
+  tty.c_cc[VTIME] = 0; // Dont wait at all, send in whatever
   tty.c_cc[VMIN] = 0;
 
   cfsetispeed(&tty, info.Baud);
@@ -72,10 +74,27 @@ Serial::Serial(const SerialInfo& info)
 
 void Serial::readLine()
 {
-  char read_buff[256];
-  memset(&read_buff, '\0', sizeof(read_buff));
-  int n = read(port_nix, &read_buff, sizeof(read_buff));
-  printf("%s", read_buff);
+  memset(&this->read_buff.data, '\0', this->read_buff.size);
+  int n = read(port_nix, &this->read_buff.data, this->read_buff.size);
+  if(n)
+    printf("READ:%s", this->read_buff.data);
+}
+
+void Serial::writeTestArduino()
+{
+  char* msg = "lecommand:69";
+  write(this->port_nix, msg, sizeof(msg));
+}
+
+void Serial::writeInt(int val)
+{
+  std::string msg = "PWMPIN:";
+  msg += std::to_string(val);
+  msg += "\n";
+  // msg+='B';
+  std::cout<<"WRITING:"<<msg<<std::endl;
+  const char* sendS = msg.c_str();
+  write(this->port_nix, sendS, sizeof(sendS));
 }
 
 Serial::~Serial()
