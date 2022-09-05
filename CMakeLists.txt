@@ -14,6 +14,9 @@ add_library(Carbon SHARED ${engine_src}
                           ${imgui_src}
                           ${imgui_backends})
 
+set_target_properties(Carbon PROPERTIES
+                      RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+
 target_include_directories(Carbon PUBLIC ./libs/imgui/)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -32,5 +35,5 @@ target_link_libraries(Carbon PUBLIC OpenGL::GL)
 target_include_directories(Carbon PUBLIC ./libs/glfw/include/)
 target_link_libraries(Carbon PUBLIC glfw)
 
-add_compile_definitions(PLATFORM_LINUX)
+add_compile_definitions(PLATFORM_WINDOWS)
 add_compile_definitions(CARBON_BUILD_DLL)
