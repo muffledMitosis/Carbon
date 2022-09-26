@@ -4,3 +4,6 @@
 [submodule "libs/imgui"]
 	path = libs/imgui
 	url = https://github.com/ocornut/imgui.git
+[submodule "libs/glad-4.4"]
+	path = libs/glad-4.4
+	url = git@github.com:muffledMitosis/glad-4.4.git
