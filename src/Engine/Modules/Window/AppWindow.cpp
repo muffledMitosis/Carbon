@@ -1,4 +1,5 @@
 #include "AppWindow.hpp"
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cstddef>
 #include <iostream>
@@ -15,6 +16,11 @@ ApplicationWindow::ApplicationWindow()
   }
   this->window = glfwCreateWindow(800, 600, "LMAO", NULL, NULL);
   glfwMakeContextCurrent(this->window);
+  gladLoadGL();
+  //if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+  //  std::cout << "Failed to initialize GLAD" << std::endl;
+  //  //return -1;
+  //} 
 	std::cout << "WINDOW CREATED" << std::endl;
 }
 
