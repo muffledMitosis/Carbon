@@ -7,14 +7,15 @@
 #include <filesystem>
 #include <unordered_map>
 
-namespace Graphics {
+namespace Graphics
+{
 
 class C_API VBO
 {
 public:
 	unsigned int id;
 	VBO();
-	void BufferData(std::vector<double> &data, int streamType);
+	void BufferData(std::vector<double>& data, int streamType);
 	void Bind();
 };
 
@@ -24,7 +25,11 @@ public:
 	unsigned int id;
 	VAO();
 	void Bind();
-	void spec(const int& index, const int& size, const int& dataType, const int& stride, const int& offset);
+	void spec(const int& index,
+						const int& size,
+						const int& dataType,
+						const int& stride,
+						const int& offset);
 };
 
 class C_API EBO
@@ -33,7 +38,7 @@ public:
 	unsigned int id;
 	EBO();
 	void Bind();
-	void BufferData(std::vector<unsigned int> &data, int streamType);
+	void BufferData(std::vector<unsigned int>& data, int streamType);
 };
 
 struct C_API ImageInfo
@@ -48,17 +53,19 @@ struct C_API TextureInfo
 	unsigned long long unit;
 };
 
+std::unordered_map<std::string, Graphics::TextureInfo> TexturePool;
+
 class C_API Texture
 {
 private:
 	unsigned int id;
 	Graphics::ImageInfo imageInfo;
+
 public:
-	static std::unordered_map<std::string, Graphics::TextureInfo> texturePool;
-	Texture(std::filesystem::path texturePath, std::string varName);
+	// Texture(std::filesystem::path texturePath, std::string varName);
+	Texture(std::string textureName);
 	void Bind();
 	~Texture();
 };
 
-
-}
+}		// namespace Graphics
