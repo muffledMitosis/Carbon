@@ -63,8 +63,6 @@ void VAO::spec(const int& index,
 	glEnableVertexAttribArray(index);
 }
 
-std::unordered_map<std::string, Graphics::TextureInfo> Texture::texturePool;
-
 /*Texture::Texture(std::filesystem::path texturePath, std::string varName)
 {
 	this->imageInfo.image_data = stbi_load(texturePath.generic_string().c_str(),
@@ -95,6 +93,22 @@ std::unordered_map<std::string, Graphics::TextureInfo> Texture::texturePool;
 	glUniform1i(Texture::texturePool[varName].location,
 Texture::texturePool[varName].unit);
 }*/
+Texture::Texture(std::string textureName)
+{
+	glGenTextures(1, &this->id);
+	glActiveTexture(GL_TEXTURE0 + Graphics::TexturePool.size());
+	this->Bind();
+
+	int currentProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+
+	Graphics::TexturePool[textureName] = {
+		glGetUniformLocation(currentProgram, textureName.c_str()),
+		Graphics::TexturePool.size()};
+
+	glUniform1i(Graphics::TexturePool[textureName].location,
+							Graphics::TexturePool[textureName].unit);
+}
 
 void Texture::Bind() { glBindTexture(GL_TEXTURE_2D, this->id); }
 
