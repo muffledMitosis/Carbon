@@ -48,4 +48,4 @@ public:
 
 private:
 };
-}		// namespace Graphics
+}	 // namespace Graphics

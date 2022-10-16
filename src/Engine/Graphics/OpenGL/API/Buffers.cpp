@@ -16,7 +16,10 @@ VBO::VBO()
 	this->Bind();
 }
 
-void VBO::Bind() { glBindBuffer(GL_ARRAY_BUFFER, this->id); }
+void VBO::Bind()
+{
+	glBindBuffer(GL_ARRAY_BUFFER, this->id);
+}
 
 void VBO::BufferData(std::vector<double>& data, int streamType)
 {
@@ -33,7 +36,10 @@ EBO::EBO()
 	this->Bind();
 }
 
-void EBO::Bind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->id); }
+void EBO::Bind()
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->id);
+}
 
 void EBO::BufferData(std::vector<unsigned int>& data, int streamType)
 {
@@ -50,7 +56,10 @@ VAO::VAO()
 	this->Bind();
 }
 
-void VAO::Bind() { glBindVertexArray(this->id); }
+void VAO::Bind()
+{
+	glBindVertexArray(this->id);
+}
 
 void VAO::spec(const int& index,
 							 const int& size,
@@ -102,19 +111,22 @@ Texture::Texture(std::string textureName)
 	int currentProgram;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
 
-	Graphics::TexturePool[textureName] = {
-		glGetUniformLocation(currentProgram, textureName.c_str()),
-		Graphics::TexturePool.size()};
+	Graphics::TexturePool[textureName]
+		= {glGetUniformLocation(currentProgram, textureName.c_str()),
+			 Graphics::TexturePool.size()};
 
 	glUniform1i(Graphics::TexturePool[textureName].location,
 							Graphics::TexturePool[textureName].unit);
 }
 
-void Texture::Bind() { glBindTexture(GL_TEXTURE_2D, this->id); }
+void Texture::Bind()
+{
+	glBindTexture(GL_TEXTURE_2D, this->id);
+}
 
 Texture::~Texture()
 {
 	// stbi_image_free(this->imageInfo.image_data);
 }
 
-}		// namespace Graphics
+}	 // namespace Graphics

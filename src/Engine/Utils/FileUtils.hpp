@@ -9,4 +9,4 @@ namespace Utils
 {
 std::string C_API readFile(fs::path path);
 bool C_API isAccessible(fs::path path);
-}		// namespace Utils
+}	 // namespace Utils

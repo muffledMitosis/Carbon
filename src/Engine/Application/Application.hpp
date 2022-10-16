@@ -1,16 +1,17 @@
 #pragma once
 #include "../Core.h"
-namespace Carbon {
+namespace Carbon
+{
 
-  class C_API Application
-  {
-  public:
-    Application();
-    ~Application();
-    bool ExitCondition;
-    virtual void Update()=0;
-    void Run();
-  };
-  // Client defines this
-  Application* CreateApplication();
-}
+class C_API Application
+{
+public:
+	Application();
+	~Application();
+	bool ExitCondition;
+	virtual void Update() = 0;
+	void Run();
+};
+// Client defines this
+Application* CreateApplication();
+}	 // namespace Carbon

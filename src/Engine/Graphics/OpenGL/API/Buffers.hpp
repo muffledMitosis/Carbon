@@ -68,4 +68,4 @@ public:
 	~Texture();
 };
 
-}		// namespace Graphics
+}	 // namespace Graphics

@@ -35,13 +35,13 @@ Shader::Shader(std::filesystem::path vertexFile,
 void Shader::initializeShaderInfo(std::filesystem::path vertexFile,
 																	std::filesystem::path fragmentFile)
 {
-	this->vertex.id = glCreateShader(GL_VERTEX_SHADER);
-	this->fragment.id = glCreateShader(GL_FRAGMENT_SHADER);
-	this->vertex.sourcePath = vertexFile;
+	this->vertex.id						= glCreateShader(GL_VERTEX_SHADER);
+	this->fragment.id					= glCreateShader(GL_FRAGMENT_SHADER);
+	this->vertex.sourcePath		= vertexFile;
 	this->fragment.sourcePath = fragmentFile;
-	this->vertex.source = Utils::readFile(this->vertex.sourcePath.string());
+	this->vertex.source				= Utils::readFile(this->vertex.sourcePath.string());
 	this->fragment.source = Utils::readFile(this->fragment.sourcePath.string());
 }
 
 Shader::~Shader() {}
-}		// namespace Graphics
+}	 // namespace Graphics
