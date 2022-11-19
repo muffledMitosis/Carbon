@@ -41,5 +41,5 @@ add_subdirectory(./libs/glad-4.4/)
 target_include_directories(Carbon PUBLIC ./libs/glad-4.4/include/)
 target_link_libraries(Carbon PUBLIC glad)
 
-add_compile_definitions(PLATFORM_WINDOWS)
+add_compile_definitions(PLATFORM_LINUX)
 add_compile_definitions(CARBON_BUILD_DLL)
